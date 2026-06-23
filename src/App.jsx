@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import React from "react";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -9,6 +10,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function App() {
+  const navigate = useNavigate();
   const [previewFoto, setPreviewFoto] = useState(null);
   const [image, setImage] = useState(null);
   const [todos, setTodos] = useState([]);
@@ -48,15 +50,20 @@ function App() {
 
     return (
       <>
-        <Webcam
-          audio={false}
-          height={720}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          width={1280}
-          videoConstraints={videoConstraints}
-        />
-        <button onClick={capture}>Capture photo</button>
+        <div className="flex flex-col">
+          <Webcam
+            audio={false}
+            height={720}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            width={1280}
+            videoConstraints={videoConstraints}
+          />
+
+          <button onClick={capture} className="bg-gray-700 p-5">
+            Capture photo
+          </button>
+        </div>
       </>
     );
   };
@@ -77,6 +84,7 @@ function App() {
       setImage(foto);
     }
   }, [foto]);
+
   async function uplaodFoto(file) {
     // if (foto === null) {
     //   // alert("pilih foto dulu")
@@ -117,8 +125,12 @@ function App() {
   }
   console.log(image);
   return (
-    <>
-      <div className="text-white">
+    <div className="bg-gray-900 min-h-screen text-white flex flex-col justify-center">
+      <div className="flex justify-center">
+        <WebcamCapture />
+      </div>
+
+      <div className="text-white flex justify-center m-5">
         <input
           type="file"
           onChange={(e) => {
@@ -128,24 +140,25 @@ function App() {
             }
           }}
         />
-        <button className="" onClick={uplaodFoto}>
-          Upload
-        </button>
       </div>
 
-      <WebcamCapture />
-      <img
-        src={previewFoto}
-        alt="Hasil Kamera"
-        className="max-w-xs h-auto rounded border border-pink-5002"
-      />
+      <div className="flex justify-center">
+        <img
+          src={previewFoto}
+          alt="Hasil Kamera"
+          className="max-w-xs h-auto rounded border border-pink-5002"
+        />
+      </div>
+      <button className="p-5 bg-gray-700" onClick={uplaodFoto}>
+        Upload
+      </button>
 
-      <ul className="text-white">
+      {/* <ul className="text-white">
         {todos.map((todo) => (
           <li key={todo.id}>{todo.Nama}</li>
         ))}
-      </ul>
-    </>
+      </ul> */}
+    </div>
   );
 }
 
