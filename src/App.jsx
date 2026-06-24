@@ -19,6 +19,9 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [foto, setFoto] = useState(null);
   const [namaFile, setNamaFile] = useState("Ambil foto/pilih dari galeri");
+  const [namaToko, setNamaToko] = useState();
+  const [totalBelanja, setTotalBelanja] = useState();
+  const [loading, setLoading] = useState(false);
   if (image != null) console.log("file di memori reeact" + image);
 
   const videoConstraints = {
@@ -101,7 +104,7 @@ function App() {
     //   // alert("pilih foto dulu")
 
     // }
-
+    setLoading(true);
     const namaFile = `${Date.now()}`;
     const { data, error } = await supabase.storage
       .from("Recipt")
@@ -109,6 +112,7 @@ function App() {
     if (error) {
       alert("gagal upload");
       console.error(storageError);
+      setLoading(false);
     } else {
       alert("oke");
       try {
@@ -125,15 +129,19 @@ function App() {
           });
 
         if (errorDeno) throw errorDeno;
-
         console.log("hasil gemini", deno);
-        alert(`Toko: ${deno.merchantName}, Total: Rp ${deno.totalAmount}`);
+        // alert(`Toko: ${deno.merchantName}, Total: Rp ${deno.totalAmount}`);
+        setTotalBelanja(deno.totalAmount);
+        setNamaToko(deno.merchantName);
       } catch (err) {
         console.error("error:", err);
         alert("error!");
+      } finally {
+        setLoading(false);
       }
     }
   }
+
   console.log(image);
   return (
     <div className=" min-h-screen text-black flex flex-col relative max-w-xl">
@@ -175,10 +183,18 @@ function App() {
             />
 
             <button
-              className=" bg-white rounded-xl p-4 hover:bg-gray-500 hover:text-white"
+              disabled={loading} 
+              className="bg-white rounded-xl p-4 text-gray-900 font-bold hover:bg-gray-500 hover:text-white disabled:opacity-50 transition-all"
               onClick={uplaodFoto}
             >
-              Upload
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-900 border-t-transparent"></span>
+                  Proses...
+                </span>
+              ) : (
+                "Upload"
+              )}
             </button>
           </div>
         </div>
@@ -191,7 +207,27 @@ function App() {
           )}
         </div>
 
-        <footer class="flex justify-center p-3 opacity-50 text-xs mb-40">
+        {namaToko && totalBelanja && (
+          <div className="m-5">
+            <p className="bg-green-600 w-fit p-1 rounded-xl text-white mb-3 ">
+              Output AI :{" "}
+            </p>
+            <div className="flex justify-between text-xl">
+              <p>{namaToko}</p>
+              <p>Rp.{totalBelanja}</p>
+            </div>
+            <hr />
+
+            <div className="text-center">
+              {" "}
+              <button className="mt-3 bg-gray-900 rounded-xl p-3 text-bold text-white ">
+                Konfirmasi
+              </button>
+            </div>
+          </div>
+        )}
+
+        <footer className="flex justify-center p-3 opacity-50 text-xs mb-40">
           &copy; 2026 Aditya Arrofi. All Rights Reserved
         </footer>
       </div>
