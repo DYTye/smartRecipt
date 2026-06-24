@@ -63,7 +63,7 @@ function App() {
             videoConstraints={videoConstraints}
             className="h-fit"
           />
-          <div className=" absolute bottom-15 right-0 left-0 flex justify-center items- gap-3">
+          <div className=" absolute bottom-10 right-0 left-0 flex justify-center items- gap-3">
             <button
               onClick={capture}
               className=" bg-gray-700 p-5 text-white text-center rounded-xl"
@@ -147,12 +147,12 @@ function App() {
         </ul>
       </div>
 
-      <div className="fixed top-0 left-0 right-0 z-10">
+      <div className="sticky top-0 left-0 right-0 z-10">
         <WebcamCapture />
       </div>
 
       {/* main section */}
-      <div className=" relative bg-white rounded-t-4xl mt-[42vh] z-20 ">
+      <div className=" relative bg-white rounded-t-4xl mt-[-25px] z-20 ">
         <div className="flex justify-center m-3">
           <div className="bg-black/20 rounded-full w-34">
             <p className="p-1"></p>
@@ -166,7 +166,7 @@ function App() {
                 htmlFor="foto-recipt"
                 className="flex items-center justify-center p-4"
               >
-                <FaFileUpload className="text-xls text-white " />
+                <FaFileUpload className="text-xl text-white " />
               </label>
             </div>
             {namaFile && <span className="text-white">{namaFile}</span>}
