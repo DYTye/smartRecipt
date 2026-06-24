@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 
+import FooterAndHeader from "./FooterAndHeader.jsx";
+
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
@@ -136,17 +138,7 @@ function App() {
   console.log(image);
   return (
     <div className=" min-h-screen text-black flex flex-col relative max-w-xl">
-      <div className="bg-gray-900 font-bold text-xl text-white text-center fixed top-0 w-full z-20">
-        <p className="p-5">Smart Recipt</p>
-      </div>
-      <div className="fixed bottom-4 left-0 right-0  z-30 mx-auto w-fit bg-gray-900 font-bold text-xl text-white text-center rounded-2xl shadow-xl shadow-black/40">
-        <ul className="flex justify-center gap-10 p-5">
-          <li>home</li>
-          <li>Scanner</li>
-          <li>Akun</li>
-        </ul>
-      </div>
-
+      <FooterAndHeader />
       <div className="sticky top-0 left-0 right-0 z-10">
         <WebcamCapture />
       </div>
@@ -161,7 +153,7 @@ function App() {
 
         <div className="flex justify-center my-5">
           <div className="flex justify-center gap-5 items-center bg-gray-900 p-4 rounded-xl w-fit">
-            <div className="bg-gray-500 flex justify-center items-center rounded-xl">
+            <div className="bg-gray-500 hover:bg-gray-900 flex justify-center items-center rounded-xl">
               <label
                 htmlFor="foto-recipt"
                 className="flex items-center justify-center p-4"
@@ -183,7 +175,10 @@ function App() {
               }}
             />
 
-            <button className=" bg-white rounded-xl p-4" onClick={uplaodFoto}>
+            <button
+              className=" bg-white rounded-xl p-4 hover:bg-gray-500 hover:text-white"
+              onClick={uplaodFoto}
+            >
               Upload
             </button>
           </div>

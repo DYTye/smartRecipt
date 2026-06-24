@@ -40,8 +40,8 @@ export default function App() {
           } else {
             setAuthSuccess(true);
             // Clear URL params
-            window.history.replaceState({}, document.title, "/App");
-            navigate("/App", { replace: true });
+            window.history.replaceState({}, document.title, "/Home");
+            navigate("/Home", { replace: true });
           }
           setVerifying(false);
         });
