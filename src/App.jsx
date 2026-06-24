@@ -21,7 +21,7 @@ function App() {
   if (image != null) console.log("file di memori reeact" + image);
 
   const videoConstraints = {
-    width: { ideal: 1280 },
+    width: { ideal: 960 },
     height: { ideal: 720 },
     facingMode: "environment",
   };
