@@ -21,8 +21,8 @@ function App() {
   if (image != null) console.log("file di memori reeact" + image);
 
   const videoConstraints = {
-    width: { ideal: 480 },
-    height: { ideal: 640 },
+    width: { ideal: 720 },
+    height: { ideal: 1280 },
     facingMode: "environment",
   };
   function base64ToFile(base64Data, filename = "webcam_snap.jpg") {
