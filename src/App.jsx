@@ -61,7 +61,7 @@ function App() {
             screenshotFormat="image/jpeg"
             // width={720}
             videoConstraints={videoConstraints}
-            className=" aspect-[3/4]"
+            className=" aspect-auto h-fit"
           />
           <div className=" absolute bottom-10 right-0 left-0 flex justify-center items- gap-3">
             <button
