@@ -1,7 +1,12 @@
+import { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 import React from "react";
-import { useState } from "react";
-import FooterAndHeader from "./FooterAndHeader.jsx";
+import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
+import { FaFileUpload } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 
+import FooterAndHeader from "./FooterAndHeader.jsx";
 function home() {
   return (
     <>

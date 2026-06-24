@@ -5,7 +5,6 @@ import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
-
 import FooterAndHeader from "./FooterAndHeader.jsx";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
