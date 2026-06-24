@@ -114,7 +114,6 @@ function App() {
       console.error(storageError);
       setLoading(false);
     } else {
-      alert("oke");
       try {
         const { data: urlData } = supabase.storage
           .from("Recipt")
