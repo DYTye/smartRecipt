@@ -21,8 +21,8 @@ function App() {
   if (image != null) console.log("file di memori reeact" + image);
 
   const videoConstraints = {
-    width: 720,
-    height: 1280,
+    width: { ideal: 480 },
+    height: { ideal: 640 },
     facingMode: "environment",
   };
   function base64ToFile(base64Data, filename = "webcam_snap.jpg") {
@@ -56,12 +56,12 @@ function App() {
         <div className=" relative flex flex-col">
           <Webcam
             audio={false}
-            height={1280}
+            // height={1280}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            width={720}
+            // width={720}
             videoConstraints={videoConstraints}
-            className="h-fit"
+            className=" aspect-[3/4]"
           />
           <div className=" absolute bottom-10 right-0 left-0 flex justify-center items- gap-3">
             <button
