@@ -147,10 +147,9 @@ export default function App() {
     
     <div className="mb-6">
       <h1 className="text-xl font-bold tracking-tight text-white">
-        Supabase + React Auth
+        Login
       </h1>
       <p className="text-xs text-slate-400 mt-1">
-        Sign in via magic link with your email below
       </p>
     </div>
 
@@ -181,7 +180,7 @@ export default function App() {
             Loading...
           </span>
         ) : (
-          <span>Send Magic Link</span>
+          <span>Kirim link</span>
         )}
       </button>
     </form>
