@@ -83,10 +83,10 @@ export default function App() {
         
         <div className="mb-6">
           <h1 className="text-xl font-bold tracking-tight text-white">
-            Login Mode Password
+            Login 
           </h1>
           <p className="text-xs text-slate-400 mt-1">
-            Bypass rate-limit SMTP murni
+           
           </p>
         </div>
 
