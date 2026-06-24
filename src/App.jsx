@@ -3,6 +3,8 @@ import { createClient } from "@supabase/supabase-js";
 import React from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
+import { FaFileUpload } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -15,11 +17,12 @@ function App() {
   const [image, setImage] = useState(null);
   const [todos, setTodos] = useState([]);
   const [foto, setFoto] = useState(null);
+  const [namaFile, setNamaFile] = useState("Ambil foto/pilih dari galeri");
   if (image != null) console.log("file di memori reeact" + image);
 
   const videoConstraints = {
-    width: 1280,
-    height: 720,
+    width: 720,
+    height: 1280,
     facingMode: "environment",
   };
   function base64ToFile(base64Data, filename = "webcam_snap.jpg") {
@@ -50,19 +53,26 @@ function App() {
 
     return (
       <>
-        <div className="flex flex-col">
+        <div className=" relative flex flex-col">
           <Webcam
             audio={false}
-            height={720}
+            height={1280}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            width={1280}
+            width={720}
             videoConstraints={videoConstraints}
+            className="h-fit"
           />
-
-          <button onClick={capture} className="bg-gray-700 p-5">
-            Capture photo
-          </button>
+          <div className=" absolute bottom-15 right-0 left-0 flex justify-center items- gap-3">
+            <button
+              onClick={capture}
+              className=" bg-gray-700 p-5 text-white text-center rounded-xl"
+            >
+              <div className="flex gap-3">
+                <FaCamera className="text-xl" /> <p>Ambil Gambar</p>
+              </div>
+            </button>
+          </div>
         </div>
       </>
     );
@@ -125,33 +135,72 @@ function App() {
   }
   console.log(image);
   return (
-    <div className="bg-gray-900 min-h-screen text-white flex flex-col justify-center">
-      <div className="flex justify-center">
+    <div className=" min-h-screen text-black flex flex-col relative max-w-xl">
+      <div className="bg-gray-900 font-bold text-xl text-white text-center fixed top-0 w-full z-20">
+        <p className="p-5">Smart Recipt</p>
+      </div>
+      <div className="fixed bottom-4 left-0 right-0  z-30 mx-auto w-fit bg-gray-900 font-bold text-xl text-white text-center rounded-2xl shadow-xl shadow-black/40">
+        <ul className="flex justify-center gap-10 p-5">
+          <li>home</li>
+          <li>Scanner</li>
+          <li>Akun</li>
+        </ul>
+      </div>
+
+      <div className="fixed top-0 left-0 right-0 z-10">
         <WebcamCapture />
       </div>
 
-      <div className="text-white flex justify-center m-5">
-        <input
-          type="file"
-          onChange={(e) => {
-            const pilihFoto = e.target.files?.[0];
-            if (pilihFoto) {
-              setImage(pilihFoto);
-            }
-          }}
-        />
-      </div>
+      {/* main section */}
+      <div className=" relative bg-white rounded-t-4xl mt-[42vh] z-20 ">
+        <div className="flex justify-center m-3">
+          <div className="bg-black/20 rounded-full w-34">
+            <p className="p-1"></p>
+          </div>
+        </div>
 
-      <div className="flex justify-center">
-        <img
-          src={previewFoto}
-          alt="Hasil Kamera"
-          className="max-w-xs h-auto rounded border border-pink-5002"
-        />
+        <div className="flex justify-center my-5">
+          <div className="flex justify-center gap-5 items-center bg-gray-900 p-4 rounded-xl w-fit">
+            <div className="bg-gray-500 flex justify-center items-center rounded-xl">
+              <label
+                htmlFor="foto-recipt"
+                className="flex items-center justify-center p-4"
+              >
+                <FaFileUpload className="text-xls text-white " />
+              </label>
+            </div>
+            {namaFile && <span className="text-white">{namaFile}</span>}
+            <input
+              id="foto-recipt"
+              type="file"
+              className="hidden"
+              onChange={(e) => {
+                const pilihFoto = e.target.files?.[0];
+                if (pilihFoto) {
+                  setImage(pilihFoto);
+                  setNamaFile(pilihFoto.name);
+                }
+              }}
+            />
+
+            <button className=" bg-white rounded-xl p-4" onClick={uplaodFoto}>
+              Upload
+            </button>
+          </div>
+        </div>
+
+        <div className="m-10">
+          {previewFoto && (
+            <div className="flex justify-center">
+              <img src={previewFoto} className="" />
+            </div>
+          )}
+        </div>
+
+        <footer class="flex justify-center p-3 opacity-50 text-xs mb-40">
+          &copy; 2026 Aditya Arrofi. All Rights Reserved
+        </footer>
       </div>
-      <button className="p-5 bg-gray-700" onClick={uplaodFoto}>
-        Upload
-      </button>
 
       {/* <ul className="text-white">
         {todos.map((todo) => (

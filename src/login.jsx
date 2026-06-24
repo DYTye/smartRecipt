@@ -91,7 +91,7 @@ export default function App() {
     return (
       <div>
         <h1>Authentication</h1>
-        <p>Confirming your magic link...</p>
+        <p>Confirming link...</p>
         <p>Loading...</p>
       </div>
     );
@@ -161,7 +161,7 @@ export default function App() {
         </label>
         <input
           type="email"
-          placeholder="your.email@example.com"
+          placeholder="jejepTurbo@email.com"
           value={email}
           required={true}
           onChange={(e) => setEmail(e.target.value)}
