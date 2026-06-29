@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 function home() {
   return (
     <div className="max-w-xl">
-      <div className="bg-gray-900 font-bold text-xl text-white text-center fixed top-0 w-full z-20">
+      {/* <div className="bg-gray-900 font-bold text-xl text-white text-center fixed top-0 w-full z-20">
         <p className="p-5">Smart Recipt</p>
-      </div>
+      </div> */}
       <div className="fixed bottom-4 left-0 right-0  z-30 mx-auto w-fit bg-gray-900 font-bold text-xl text-white text-center rounded-2xl shadow-xl shadow-black/40">
         <ul className="flex justify-center gap-10 p-5">
           <li className="hover:bg-gray-500 rounded-full">
