@@ -49,7 +49,8 @@ function Home() {
       } else if (transactionsData) {
         setTransactions(transactionsData);
         setUserEmail(user.email);
-        setUserName(user.user_name);
+        const namaAsli = user.user_metadata?.display_name || user.email;
+        setUserName(namaAsli);
 
         let total = 0;
         transactionsData.forEach((item) => {
