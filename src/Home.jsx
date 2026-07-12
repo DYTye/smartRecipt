@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import FooterAndHeader from "./FooterAndHeader.jsx";
+import Header from "./Header.jsx"
+import Footer from "./Footer.jsx";
 import HomeMenu from "./HomeMenu.jsx";
 import {supabase} from "./supabase.js";
 import TransactionList from "./TransactionList.jsx";
@@ -66,7 +67,8 @@ function Home() {
 
   return (
     <div className="relative">
-      <FooterAndHeader />
+      <Header/>
+      <Footer />
       <HomeMenu userName={userName} pengeluaran={pengeluaran} />
       <TransactionList transactions={transactions}/>
     </div>

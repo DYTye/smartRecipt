@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
-import FooterAndHeader from "./FooterAndHeader.jsx";
+import FooterAndHeader from "./Footer.jsx";
 import WebcamCapture from "./WebcamCapture.jsx";
 
 function App() {
