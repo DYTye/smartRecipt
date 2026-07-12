@@ -2,7 +2,7 @@ import React from "react";
 
 function HomeMenu({ userName, pengeluaran }) {
   return (
-    <div className="bg-[url(bg.webp)] bg-size-[150%] sticky top-0 z-0 w-full py-12">
+    <div style={{ backgroundImage: "url('/bg.webp')" }} className=" bg-size-[150%] sticky top-0 z-0 w-full py-12">
       <p className="text-white font-bold text-xl font-mono  pt-10 px-6">
         Hi {userName}
       </p>
