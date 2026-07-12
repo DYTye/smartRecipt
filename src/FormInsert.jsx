@@ -43,16 +43,16 @@ function InserManual({setTambahManual}) {
   };
 
   return (
-    <div className="m-5 rounded-2xl border-2 border-black bg-white p-5 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-mono">
-      <h3 className="mb-4 font-bold text-lg border-b-2 border-black pb-2">
+    <div className="m-5 rounded-2xl  bg-white/20 backdrop-blur-sm p-5 text-white shadow-md font-mono">
+      <div className="mb-4 font-bold text-lg text-center border-black text-white">
         Input Manual
-      </h3>
+      </div>
 
       <form onSubmit={handleSimpanTransaksi} className="space-y-4">
         <div className="flex flex-col gap-1">
           <label
             htmlFor="namaMerchant"
-            className="text-xs font-bold uppercase tracking-wider text-gray-600"
+            className="text-xs font-bold uppercase tracking-wider text-white"
           >
             Nama Merchant
           </label>
@@ -61,8 +61,8 @@ function InserManual({setTambahManual}) {
             id="namaMerchant"
             value={namaToko}
             onChange={(e) => setNamaToko(e.target.value)}
-            placeholder="Toko Kelontong..."
-            className="rounded-xl border-2 border-black p-3 font-medium bg-gray-50 focus:outline-none focus:bg-amber-50"
+            placeholder="Toko Jejep"
+            className="rounded-xl  p-3 font-medium bg-gray-50 focus:outline-none focus:bg-amber-50"
             required
           />
         </div>
@@ -70,7 +70,7 @@ function InserManual({setTambahManual}) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="totalBelanja"
-            className="text-xs font-bold uppercase tracking-wider text-gray-600"
+            className="text-xs font-bold uppercase tracking-wider text-white"
           >
             Total Belanja
           </label>
@@ -80,19 +80,19 @@ function InserManual({setTambahManual}) {
             value={totalBelanja}
             onChange={(e) => setTotalBelanja(e.target.value)}
             placeholder="0"
-            className="rounded-xl border-2 border-black p-3 font-bold bg-gray-50 focus:outline-none focus:bg-amber-50"
+            className="rounded-xl  p-3 font-bold bg-gray-50 focus:outline-none focus:bg-amber-50"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-full mt-2 bg-slate-900 rounded-xl p-3 font-bold text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-800 transition-all active:translate-y-0.5 active:shadow-none"
+          className="w-full mt-2 bg-slate-900 rounded-xl p-3 font-bold text-white  shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-800 transition-all active:translate-y-0.5 active:shadow-none"
         >
           Simpan Transaksi
         </button>
         <button
-          className="w-full mt-2 bg-pink-500 rounded-xl p-3 font-bold text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-800 transition-all active:translate-y-0.5 active:shadow-none"
+          className="w-full mt-2 bg-[#D23B7B] rounded-xl p-3 font-bold text-white  shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-slate-800 transition-all active:translate-y-0.5 active:shadow-none"
           onClick={()=>{
             setTambahManual(false);
           }}

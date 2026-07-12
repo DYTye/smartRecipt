@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@keyframes modalMasuak {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalKalua {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(30px); }
+}
+
+/* Pas modal baru render (profil &&), jalankan ko */
+.animasi-masuak {
+  animation: modalMasuak 0.25s ease-out forwards;
+}
+
+/* Pas modal diapuih (ditutuik), jalankan ko */
+.animasi-kalua {
+  animation: modalKalua 0.25s ease-out forwards;
+}

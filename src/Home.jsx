@@ -8,16 +8,19 @@ import HomeMenu from "./HomeMenu.jsx";
 import { supabase } from "./supabase.js";
 import TransactionList from "./TransactionList.jsx";
 import FormInsert from "./FormInsert.jsx";
+import Account from "./Account.jsx";
 
 function Home() {
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
   const [loadingAuth, setLoadingAuth] = useState(true);
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState("HoOoman");
   const [pengeluaran, setPengeluaran] = useState(0);
   const [foto, setFoto] = useState();
   const [previewFoto, setPreviewFoto] = useState();
   const [tambahManual, setTambahManual] = useState(false);
+  const [profil, setProfil] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     async function proteksiDanFetch() {
@@ -45,7 +48,8 @@ function Home() {
         console.error("Error database:", dbError.message);
       } else if (transactionsData) {
         setTransactions(transactionsData);
-        setUserName(user.email);
+        setUserEmail(user.email);
+        setUserName(user.user_name);
 
         let total = 0;
         transactionsData.forEach((item) => {
@@ -72,13 +76,27 @@ function Home() {
   return (
     <div className="relative min-h-screen bg-[#26282a]">
       {tambahManual && (
-        <div className="fixed inset-0 flex justify-center items-center  z-40 bg-white/20 backdrop-blur-md">
-          <FormInsert setTambahManual={setTambahManual}/>
+        <div className="fixed inset-0 flex justify-center items-center  z-40 bg-black/50 backdrop-blur-sm">
+          <div className="animasi-masuak">
+            <FormInsert setTambahManual={setTambahManual} />
+          </div>
+        </div>
+      )}
+
+      {profil && (
+        <div className="fixed inset-0 flex bg-black/50 justify-center items-center z-40 backdrop-blur-sm">
+          <div className="animasi-masuak">
+            <Account
+              setProfil={setProfil}
+              userName={userName}
+              userEmail={userEmail}
+            />
+          </div>
         </div>
       )}
 
       <Header />
-      <Footer />
+      <Footer setProfil={setProfil} />
       <HomeMenu
         userName={userName}
         pengeluaran={pengeluaran}

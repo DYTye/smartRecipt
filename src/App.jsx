@@ -169,7 +169,7 @@ function App() {
               <p className=" mb-3 font-bold">Output : </p>
               <div className="flex justify-between text-xl">
                 <p>{namaToko}</p>
-                <p>Rp.{totalBelanja}</p>
+                <p>Rp.{totalBelanja.toLocaleString("id-ID")}</p>
               </div>
               <hr />
 

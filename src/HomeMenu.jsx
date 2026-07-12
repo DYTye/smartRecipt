@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { matchPath } from "react-router-dom";
 
 function HomeMenu({ userName, pengeluaran, setTambahManual }) {
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(1);
   const wallpaper = ["bg1.jpg", "bg2.jpg", "bg.webp"];
-  if(number > wallpaper.length - 1) setNumber(0)
+  if(number > wallpaper.length -1) setNumber(0)
   console.log(number);
   return (
     <div
