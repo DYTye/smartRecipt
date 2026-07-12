@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { matchPath } from "react-router-dom";
 
 function HomeMenu({ userName, pengeluaran, setTambahManual }) {
+  const [number, setNumber] = useState(0);
+  const wallpaper = ["bg1.jpg", "bg2.jpg", "bg.webp"];
+  if(number > wallpaper.length - 1) setNumber(0)
+  console.log(number);
   return (
     <div
-      style={{ backgroundImage: "url('/bg.webp')" }}
+      style={{ backgroundImage: `url(${wallpaper[number]})` }}
       className=" bg-size-[150%] sticky top-0 z-0 w-full py-12"
     >
       <p className="text-white font-bold text-xl font-mono  pt-10 px-6">
@@ -23,13 +28,23 @@ function HomeMenu({ userName, pengeluaran, setTambahManual }) {
         <div className="grid grid-cols-2 items-center gap-4">
           <div className="flex items-center justify-center bg-black/40 backdrop-blur-md  shadow-2xl shadow-black text-white rounded-xl p-2   h-18">
             <div className="flex-col">
-              <button className="font-bold font-monos"
-              onClick={()=>setTambahManual(true)}>Tambah Transaksi</button>
+              <button
+                className="font-bold font-monos"
+                onClick={() => setTambahManual(true)}
+              >
+                Tambah Transaksi
+              </button>
             </div>
           </div>
           <div className="flex items-center justify-center bg-black/40 backdrop-blur-md shadow-2xl shadow-black text-white rounded-xl p-2  h-18">
             <div className="flex flex-col font-bold">
-              <p>Export CSV</p>
+              <button
+                onClick={() => {
+                  setNumber(number + 1);
+                }}
+              >
+                Walpapper
+              </button>
             </div>
           </div>
         </div>

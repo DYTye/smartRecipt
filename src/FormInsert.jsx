@@ -16,7 +16,7 @@ function InserManual({setTambahManual}) {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      alert("Jalurnyo putuih, Bre! Ang musti login ulang dulu.");
+      alert(" login ulang dulu.");
       return;
     }
 
@@ -34,10 +34,10 @@ function InserManual({setTambahManual}) {
       .select();
 
     if (error) {
-      console.error("Gagal store data, Bre:", error.message);
-      alert(`Eror muko dapuah db: ${error.message}`);
+      console.error("Gagal store data:", error.message);
+      alert(`Eror : ${error.message}`);
     } else {
-      alert("Transaksi rasmi tasimpan gariang!");
+      alert("Transaksi tersimpan");
       navigate("/Home");
     }
   };

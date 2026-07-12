@@ -105,7 +105,6 @@ function App() {
   // console.log(image);
   return (
     <div className=" min-h-screen text-amber-100 bg-[#26282a]  flex flex-col relative max-w-xl">
-
       <FooterAndHeader />
       <div className="sticky top-0 left-0 right-0 z-10">
         <WebcamCapture setFoto={setFoto} setPreviewFoto={setPreviewFoto} />
@@ -165,32 +164,31 @@ function App() {
         </div>
 
         {namaToko && totalBelanja && (
-          <div className="m-5">
-            <p className="bg-green-600 w-fit p-1 rounded-xl text-white mb-3 ">
-              Output AI :{" "}
-            </p>
-            <div className="flex justify-between text-xl">
-              <p>{namaToko}</p>
-              <p>Rp.{totalBelanja}</p>
-            </div>
-            <hr />
+          <div className="m-5 font-mono bg-black/20 backdrop-blur-md p-2 rounded-xl">
+            <div className="m-2">
+              <p className=" mb-3 font-bold">Output : </p>
+              <div className="flex justify-between text-xl">
+                <p>{namaToko}</p>
+                <p>Rp.{totalBelanja}</p>
+              </div>
+              <hr />
 
-            <div className="text-center">
-              {" "}
-              <button
-                onClick={handleSimpanTransaksi}
-                className="mt-3 bg-gray-900 rounded-xl p-3 text-bold text-white"
-              >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-900 border-t-transparent"></span>
-                    Proses...
-                  </span>
-                ) : (
-                  "Upload"
-                )}
-                Konfirmasi
-              </button>
+              <div className="text-center">
+                {" "}
+                <button
+                  onClick={handleSimpanTransaksi}
+                  className="mt-3 bg-white/20 backdrop-blur-md rounded-xl p-3 text-bold text-white"
+                >
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-900 border-t-transparent"></span>
+                      Proses...
+                    </span>
+                  ) : (
+                    "Konfirmasi"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         )}
