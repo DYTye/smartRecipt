@@ -62,7 +62,7 @@ function InserManual({setTambahManual}) {
             value={namaToko}
             onChange={(e) => setNamaToko(e.target.value)}
             placeholder="Toko Jejep"
-            className="rounded-xl  p-3 font-medium bg-gray-50 focus:outline-none focus:bg-amber-50"
+            className="rounded-xl text-black p-3 font-medium bg-gray-50 focus:outline-none focus:bg-amber-50"
             required
           />
         </div>
@@ -80,7 +80,7 @@ function InserManual({setTambahManual}) {
             value={totalBelanja}
             onChange={(e) => setTotalBelanja(e.target.value)}
             placeholder="0"
-            className="rounded-xl  p-3 font-bold bg-gray-50 focus:outline-none focus:bg-amber-50"
+            className="rounded-xl text-black p-3 font-bold bg-gray-50 focus:outline-none focus:bg-amber-50"
             required
           />
         </div>
