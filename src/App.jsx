@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./supabase.js";
 import React from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 import FooterAndHeader from "./FooterAndHeader.jsx";
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import WebcamCapture from "./WebcamCapture.jsx";
 
 function App() {
   const navigate = useNavigate();
   const [previewFoto, setPreviewFoto] = useState(null);
   const [image, setImage] = useState(null);
-  const [todos, setTodos] = useState([]);
   const [foto, setFoto] = useState(null);
   const [namaFile, setNamaFile] = useState("Ambil foto/pilih dari galeri");
   const [namaToko, setNamaToko] = useState();
@@ -24,75 +19,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   if (image != null) console.log("file di memori reeact" + image);
 
-  const videoConstraints = {
-    width: { ideal: 960 },
-    height: { ideal: 720 },
-    facingMode: "environment",
-  };
-  function base64ToFile(base64Data, filename = "webcam_snap.jpg") {
-    const arr = base64Data.split(",");
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-  }
-  const WebcamCapture = () => {
-    const webcamRef = React.useRef(null);
-    const capture = React.useCallback(() => {
-      const imageSrc = webcamRef.current.getScreenshot();
-      if (imageSrc != null) {
-        // const fotoMurni = base64ToBlob(imageSrc);
-        // setFoto(fotoMurni);
-        setPreviewFoto(imageSrc);
-        const fotoImg = base64ToFile(imageSrc);
-        setFoto(fotoImg);
-      }
-    }, [webcamRef]);
-
-    return (
-      <>
-        <div className=" relative flex flex-col">
-          <Webcam
-            audio={false}
-            // height={1280}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            // width={720}
-            videoConstraints={videoConstraints}
-            className=" aspect-auto h-fit"
-          />
-          <div className=" absolute bottom-10 right-0 left-0 flex justify-center items- gap-3">
-            <button
-              onClick={capture}
-              className=" bg-gray-700 p-5 text-white text-center rounded-xl"
-            >
-              <div className="flex gap-3">
-                <FaCamera className="text-xl" /> <p>Ambil Gambar</p>
-              </div>
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  };
-
-  useEffect(() => {
-    async function getTodos() {
-      const { data: todos } = await supabase.from("todos").select();
-
-      if (todos) {
-        setTodos(todos);
-      }
-    }
-
-    getTodos();
-  }, []);
   useEffect(() => {
     if (foto != null) {
       setImage(foto);
@@ -102,7 +28,6 @@ function App() {
   async function uplaodFoto(file) {
     // if (foto === null) {
     //   // alert("pilih foto dulu")
-
     // }
     setLoading(true);
     const namaFile = `${Date.now()}`;
@@ -140,8 +65,49 @@ function App() {
       }
     }
   }
+  const handleSimpanTransaksi = async (event) => {
+    event.preventDefault();
 
-  console.log(image);
+    // 1. Ambiak data user aktif langsung dari auth Supabase
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      alert("Jalurnyo putuih, Bre! Ang musti login ulang dulu.");
+      return;
+    }
+
+    // DEBUG JALUR: Pantiang untuak melacak kok ado properti nan kosong
+    console.log("USER ID:", user.id);
+    console.log("NAMA TOKO:", namaToko);
+    console.log("TOTAL BELANJA:", totalBelanja);
+
+    // 2. Tembak data murni dangan sintaks standard pabrik Supabase
+    const { data, error } = await supabase
+      .from("transactions")
+      .insert([
+        {
+          merchant_name: namaToko || "Tanpa Nama",
+          total_amount: Number(totalBelanja || 0),
+          date: new Date().toISOString().split("T")[0],
+          image_url: "https://link-foto.com",
+          user_id: user.id, 
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error("Gagal store data, Bre:", error.message);
+      alert(`Eror muko dapuah db: ${error.message}`);
+    } else {
+      alert("Transaksi rasmi tasimpan gariang!");
+      navigate("/Home");
+    }
+  };
+
+  // console.log(image);
   return (
     <div className=" min-h-screen text-black flex flex-col relative max-w-xl">
       <FooterAndHeader />
@@ -182,7 +148,7 @@ function App() {
             />
 
             <button
-              disabled={loading} 
+              disabled={loading}
               className="bg-white rounded-xl p-4 text-gray-900 font-bold hover:bg-gray-500 hover:text-white disabled:opacity-50 transition-all"
               onClick={uplaodFoto}
             >
@@ -200,8 +166,8 @@ function App() {
 
         <div className="m-10">
           {previewFoto && (
-            <div className="flex justify-center">
-              <img src={previewFoto} className="" />
+            <div className="flex justify-center animate-[scaleIn_0.3s_ease-out]">
+              <img src={previewFoto} className="rounded-xl" />
             </div>
           )}
         </div>
@@ -219,7 +185,10 @@ function App() {
 
             <div className="text-center">
               {" "}
-              <button className="mt-3 bg-gray-900 rounded-xl p-3 text-bold text-white ">
+              <button
+                onClick={handleSimpanTransaksi}
+                className="mt-3 bg-gray-900 rounded-xl p-3 text-bold text-white"
+              >
                 Konfirmasi
               </button>
             </div>
@@ -231,11 +200,11 @@ function App() {
         </footer>
       </div>
 
-      {/* <ul className="text-white">
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.Nama}</li>
-        ))}
-      </ul> */}
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      `}</style>
     </div>
   );
 }
