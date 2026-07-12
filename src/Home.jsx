@@ -14,6 +14,8 @@ function Home() {
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [userName,setUserName] = useState();
   const [pengeluaran,setPengeluaran] =  useState(0);
+  const [foto,setFoto] = useState();
+  const [previewFoto,setPreviewFoto] = useState();
 
   useEffect(() => {
     async function proteksiDanFetch() {
@@ -66,7 +68,7 @@ function Home() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-[#26282a]">
       <Header/>
       <Footer />
       <HomeMenu userName={userName} pengeluaran={pengeluaran} />

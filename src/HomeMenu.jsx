@@ -2,7 +2,7 @@ import React from "react";
 
 function HomeMenu({ userName, pengeluaran }) {
   return (
-    <div className="bg-gray-900 sticky top-0 z-0 w-full py-12">
+    <div className="bg-[url(bg.webp)] bg-size-[150%] sticky top-0 z-0 w-full py-12">
       <p className="text-white font-bold text-xl font-mono  pt-10 px-6">
         Hi {userName}
       </p>
@@ -10,7 +10,7 @@ function HomeMenu({ userName, pengeluaran }) {
         Catat Semua Transaksi Kamu.
       </p>
       <div className="px-6 mx-auto mt-5 space-y-4">
-        <div className="bg-white text-black p-7 rounded-xl">
+        <div className="bg-black/40 backdrop-blur-md shadow-2xl shadow-black text-white p-7 rounded-xl">
           <p className="font-extralight">Pengeluaran Bulan Ini:</p>
           <p className="font-mono font-bold text-3xl">
             Rp.
@@ -18,13 +18,12 @@ function HomeMenu({ userName, pengeluaran }) {
           </p>
         </div>
         <div className="grid grid-cols-2 items-center gap-4">
-          <div className="flex items-center justify-center bg-white p-2  text-black rounded-xl  h-18">
+          <div className="flex items-center justify-center bg-black/40 backdrop-blur-md  shadow-2xl shadow-black text-white rounded-xl p-2   h-18">
             <div className="flex-col">
-              <p>Batas Bulan ini : </p>
-              <p className="font-bold font-monos">Rp.15.000.000</p>
+              <p className="font-bold font-monos">Tambah Transaksi</p>
             </div>
           </div>
-          <div className="flex items-center justify-center bg-white p-2 text-black rounded-xl  h-18">
+          <div className="flex items-center justify-center bg-black/40 backdrop-blur-md shadow-2xl shadow-black text-white rounded-xl p-2  h-18">
             <div className="flex flex-col font-bold">
               <p>Export CSV</p>
             </div>

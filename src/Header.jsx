@@ -1,11 +1,14 @@
 import React from "react";
-
+import { CiMenuFries } from "react-icons/ci";
 
 function home() {
   return (
     <div className="max-w-xl bg-gray-900">
-      <div className="bg-white rounded-b-2xl font-bold text-xl  text-black text-center fixed top-0 w-full z-20">
-        <p className="p-5">Smart Recipt</p>
+      <div className="backdrop-blur-md bg-black/40 rounded-2xl font-bold text-xl  text-white text-center fixed top-0 w-full z-20">
+        <div className="flex items-center justify-center relative">
+          <CiMenuFries className="text-3xl absolute left-5"/>
+          <div className="p-5 ">Smart Receipt</div>
+        </div>
       </div>
     </div>
   );

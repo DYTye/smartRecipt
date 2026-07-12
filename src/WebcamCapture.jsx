@@ -49,7 +49,7 @@ function WebcamCapture({ setFoto, setPreviewFoto }) {
           <div className=" absolute bottom-10 right-0 left-0 flex justify-center items- gap-3">
             <button
               onClick={capture}
-              className=" bg-gray-700 p-5 text-white text-center rounded-xl"
+              className=" bg-black/20 backdrop-blur-md p-5 text-white text-center rounded-xl"
             >
               <div className="flex gap-3">
                 <FaCamera className="text-xl" /> <p>Ambil Gambar</p>

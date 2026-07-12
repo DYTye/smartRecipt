@@ -109,14 +109,14 @@ function App() {
 
   // console.log(image);
   return (
-    <div className=" min-h-screen text-black flex flex-col relative max-w-xl">
+    <div className=" min-h-screen text-amber-100 bg-[#26282a]  flex flex-col relative max-w-xl">
       <FooterAndHeader />
       <div className="sticky top-0 left-0 right-0 z-10">
-        <WebcamCapture />
+        <WebcamCapture setFoto={setFoto} setPreviewFoto={setPreviewFoto} />
       </div>
 
       {/* main section */}
-      <div className=" relative bg-white rounded-t-4xl mt-[-25px] z-20 ">
+      <div className=" relative bg-[#26282a] rounded-t-4xl mt-[-25px] z-20 ">
         <div className="flex justify-center m-3">
           <div className="bg-black/20 rounded-full w-34">
             <p className="p-1"></p>
@@ -124,16 +124,16 @@ function App() {
         </div>
 
         <div className="flex justify-center my-5">
-          <div className="flex justify-center gap-5 items-center bg-gray-900 p-4 rounded-xl w-fit">
-            <div className="bg-gray-500 hover:bg-gray-900 flex justify-center items-center rounded-xl">
+          <div className="flex justify-center gap-5 items-center bg-black/20 p-4 rounded-xl w-fit mx-5">
+            <div className="bg-white text-black hover:bg-gray-900 flex justify-center items-center rounded-xl">
               <label
                 htmlFor="foto-recipt"
                 className="flex items-center justify-center p-4"
               >
-                <FaFileUpload className="text-xl text-white " />
+                <FaFileUpload className="text-xl  " />
               </label>
             </div>
-            {namaFile && <span className="text-white">{namaFile}</span>}
+            {namaFile && <span className="">{namaFile}</span>}
             <input
               id="foto-recipt"
               type="file"
@@ -195,10 +195,11 @@ function App() {
           </div>
         )}
 
-        <footer className="flex justify-center p-3 opacity-50 text-xs mb-40">
+     
+      </div>
+         <footer className="flex justify-center p-3 opacity-50 text-xs mb-40">
           &copy; 2026 Aditya Arrofi. All Rights Reserved
         </footer>
-      </div>
 
       <style>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
