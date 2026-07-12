@@ -2,20 +2,22 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Header from "./Header.jsx"
+import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import HomeMenu from "./HomeMenu.jsx";
-import {supabase} from "./supabase.js";
+import { supabase } from "./supabase.js";
 import TransactionList from "./TransactionList.jsx";
+import FormInsert from "./FormInsert.jsx";
 
 function Home() {
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
   const [loadingAuth, setLoadingAuth] = useState(true);
-  const [userName,setUserName] = useState();
-  const [pengeluaran,setPengeluaran] =  useState(0);
-  const [foto,setFoto] = useState();
-  const [previewFoto,setPreviewFoto] = useState();
+  const [userName, setUserName] = useState();
+  const [pengeluaran, setPengeluaran] = useState(0);
+  const [foto, setFoto] = useState();
+  const [previewFoto, setPreviewFoto] = useState();
+  const [tambahManual, setTambahManual] = useState(false);
 
   useEffect(() => {
     async function proteksiDanFetch() {
@@ -43,10 +45,10 @@ function Home() {
         console.error("Error database:", dbError.message);
       } else if (transactionsData) {
         setTransactions(transactionsData);
-        setUserName(user.email)
+        setUserName(user.email);
 
         let total = 0;
-        transactionsData.forEach(item=>{
+        transactionsData.forEach((item) => {
           total = total + Number(item.total_amount || 0);
         });
         setPengeluaran(total);
@@ -69,10 +71,20 @@ function Home() {
 
   return (
     <div className="relative min-h-screen bg-[#26282a]">
-      <Header/>
+      {tambahManual && (
+        <div className="fixed inset-0 flex justify-center items-center  z-40 bg-white/20 backdrop-blur-md">
+          <FormInsert setTambahManual={setTambahManual}/>
+        </div>
+      )}
+
+      <Header />
       <Footer />
-      <HomeMenu userName={userName} pengeluaran={pengeluaran} />
-      <TransactionList transactions={transactions}/>
+      <HomeMenu
+        userName={userName}
+        pengeluaran={pengeluaran}
+        setTambahManual={setTambahManual}
+      />
+      <TransactionList transactions={transactions} />
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import React from "react";
 
-function HomeMenu({ userName, pengeluaran }) {
+function HomeMenu({ userName, pengeluaran, setTambahManual }) {
   return (
-    <div style={{ backgroundImage: "url('/bg.webp')" }} className=" bg-size-[150%] sticky top-0 z-0 w-full py-12">
+    <div
+      style={{ backgroundImage: "url('/bg.webp')" }}
+      className=" bg-size-[150%] sticky top-0 z-0 w-full py-12"
+    >
       <p className="text-white font-bold text-xl font-mono  pt-10 px-6">
         Hi {userName}
       </p>
@@ -20,7 +23,8 @@ function HomeMenu({ userName, pengeluaran }) {
         <div className="grid grid-cols-2 items-center gap-4">
           <div className="flex items-center justify-center bg-black/40 backdrop-blur-md  shadow-2xl shadow-black text-white rounded-xl p-2   h-18">
             <div className="flex-col">
-              <p className="font-bold font-monos">Tambah Transaksi</p>
+              <button className="font-bold font-monos"
+              onClick={()=>setTambahManual(true)}>Tambah Transaksi</button>
             </div>
           </div>
           <div className="flex items-center justify-center bg-black/40 backdrop-blur-md shadow-2xl shadow-black text-white rounded-xl p-2  h-18">

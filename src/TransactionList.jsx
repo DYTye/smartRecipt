@@ -7,15 +7,18 @@ function TransactionList({ transactions }) {
       {transactions.map((item, index) => {
         return (
           <React.Fragment key={item.id || index}>
-            <div className="flex justify-between m-2 ring-1s ring-black/70 p-5 rounded-xl shadow-xl">
-              <div>
-                <p>{item.merchant_name || "Tanpa Nama"}</p>
-                <p className="font-extralight">{item.date || "-"}</p>
+            <a href={item.image_url}>
+              <div className="flex justify-between m-2 ring-1s ring-black/70 p-5 rounded-xl shadow-xl">
+                <div>
+                  <p>{item.merchant_name || "Tanpa Nama"}</p>
+                  <p className="font-extralight">{item.date || "-"}</p>
+                </div>
+                <p className="font-bold">
+                  Rp.{Number(item.total_amount || 0).toLocaleString("id-ID")}
+                </p>
+                {/* <p>{item.image_url}</p> */}
               </div>
-              <p className="font-bold">
-                Rp.{Number(item.total_amount || 0).toLocaleString("id-ID")}
-              </p>
-            </div>
+            </a>
           </React.Fragment>
         );
       })}

@@ -17,6 +17,7 @@ function App() {
   const [namaToko, setNamaToko] = useState();
   const [totalBelanja, setTotalBelanja] = useState();
   const [loading, setLoading] = useState(false);
+  const [linkFoto, setLinkFoto] = useState();
   if (image != null) console.log("file di memori reeact" + image);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
           .getPublicUrl(namaFile);
 
         const linkGambaMurni = urlData.publicUrl;
+        setLinkFoto(linkGambaMurni);
         console.log("url:", linkGambaMurni);
 
         const { data: deno, error: errorDeno } =
@@ -68,7 +70,6 @@ function App() {
   const handleSimpanTransaksi = async (event) => {
     event.preventDefault();
 
-    // 1. Ambiak data user aktif langsung dari auth Supabase
     const {
       data: { user },
       error: authError,
@@ -79,12 +80,6 @@ function App() {
       return;
     }
 
-    // DEBUG JALUR: Pantiang untuak melacak kok ado properti nan kosong
-    console.log("USER ID:", user.id);
-    console.log("NAMA TOKO:", namaToko);
-    console.log("TOTAL BELANJA:", totalBelanja);
-
-    // 2. Tembak data murni dangan sintaks standard pabrik Supabase
     const { data, error } = await supabase
       .from("transactions")
       .insert([
@@ -92,8 +87,8 @@ function App() {
           merchant_name: namaToko || "Tanpa Nama",
           total_amount: Number(totalBelanja || 0),
           date: new Date().toISOString().split("T")[0],
-          image_url: "https://link-foto.com",
-          user_id: user.id, 
+          image_url: linkFoto,
+          user_id: user.id,
         },
       ])
       .select();
@@ -110,6 +105,7 @@ function App() {
   // console.log(image);
   return (
     <div className=" min-h-screen text-amber-100 bg-[#26282a]  flex flex-col relative max-w-xl">
+
       <FooterAndHeader />
       <div className="sticky top-0 left-0 right-0 z-10">
         <WebcamCapture setFoto={setFoto} setPreviewFoto={setPreviewFoto} />
@@ -117,11 +113,7 @@ function App() {
 
       {/* main section */}
       <div className=" relative bg-[#26282a] rounded-t-4xl mt-[-25px] z-20 ">
-        <div className="flex justify-center m-3">
-          <div className="bg-black/20 rounded-full w-34">
-            <p className="p-1"></p>
-          </div>
-        </div>
+        <p className="mt-5 mx-auto font-light bg-gray-200 rounded-full px-2 py-1 w-25 text-xs shadow-xl shadow-amber-50"></p>
 
         <div className="flex justify-center my-5">
           <div className="flex justify-center gap-5 items-center bg-black/20 p-4 rounded-xl w-fit mx-5">
@@ -189,17 +181,23 @@ function App() {
                 onClick={handleSimpanTransaksi}
                 className="mt-3 bg-gray-900 rounded-xl p-3 text-bold text-white"
               >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-900 border-t-transparent"></span>
+                    Proses...
+                  </span>
+                ) : (
+                  "Upload"
+                )}
                 Konfirmasi
               </button>
             </div>
           </div>
         )}
-
-     
       </div>
-         <footer className="flex justify-center p-3 opacity-50 text-xs mb-40">
-          &copy; 2026 Aditya Arrofi. All Rights Reserved
-        </footer>
+      <footer className="flex justify-center p-3 opacity-50 text-xs mb-40">
+        &copy; 2026 Aditya Arrofi. All Rights Reserved
+      </footer>
 
       <style>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

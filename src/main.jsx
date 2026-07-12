@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import Login from "./login.jsx";
 import Home from "./Home.jsx";
+import FormInsert from "./FormInsert.jsx";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/App" element={<App />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Login />} />
+        <Route path="/insert" element={<FormInsert/>}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
