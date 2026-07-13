@@ -8,7 +8,7 @@ function TransactionList({ transactions }) {
         return (
           <React.Fragment key={item.id || index}>
             <a href={item.image_url}>
-              <div className="flex justify-between m-2 ring-1s ring-black/70 p-5 rounded-xl shadow-xl">
+              <div className="flex justify-between m-1 ring-1s bg-black/10 ring-black/70 p-5 rounded-xl shadow-xl">
                 <div>
                   <p>{item.merchant_name || "Tanpa Nama"}</p>
                   <p className="font-extralight">{item.date || "-"}</p>
