@@ -37,8 +37,7 @@ function InserManual({setTambahManual}) {
       console.error("Gagal store data:", error.message);
       alert(`Eror : ${error.message}`);
     } else {
-      alert("Transaksi tersimpan");
-      navigate("/Home");
+      setTambahManual(false);
     }
   };
 

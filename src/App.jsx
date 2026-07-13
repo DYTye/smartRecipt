@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { supabase } from "./supabase.js";
 import React from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { FaFileUpload } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
-import FooterAndHeader from "./Footer.jsx";
+import Footer from "./Footer.jsx";
 import WebcamCapture from "./WebcamCapture.jsx";
+import Account from "./Account.jsx";
 
 function App() {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ function App() {
   const [totalBelanja, setTotalBelanja] = useState();
   const [loading, setLoading] = useState(false);
   const [linkFoto, setLinkFoto] = useState();
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [userName, setUserName] = useState("HoOoman");
+  const [userEmail,setUserEmail] = useState("");
+  const [profil, setProfil] = useState(false);
+
   if (image != null) console.log("file di memori reeact" + image);
 
   useEffect(() => {
@@ -101,14 +107,65 @@ function App() {
       navigate("/Home");
     }
   };
+  useEffect(() => {
+    async function proteksiDanFetch() {
+      const {
+        data: { session },
+        error: authError,
+      } = await supabase.auth.getSession();
+
+      if (authError || !session) {
+        console.warn("User belum login, redirect ke halaman auth.");
+        navigate("/");
+        return;
+      }
+
+      const user = session.user;
+      setLoadingAuth(false);
+
+      const { data: transactionsData, error: dbError } = await supabase
+        .from("transactions")
+        .select("*")
+        .eq("user_id", user?.id)
+        .order("created_at", { ascending: false });
+
+      
+      setUserEmail(user.email);
+      const namaAsli = user.user_metadata?.display_name || user.email;
+      setUserName(namaAsli);
+    }
+
+    proteksiDanFetch();
+  }, [navigate]);
+  if (loadingAuth) {
+    return (
+      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center font-mono">
+        <div className="flex items-center gap-2">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent"></span>
+          <span>Checking_Auth...</span>
+        </div>
+      </div>
+    );
+  }
 
   // console.log(image);
   return (
     <div className=" min-h-screen text-amber-100 bg-[#26282a]  flex flex-col relative max-w-xl">
-      <FooterAndHeader />
+      <Footer setProfil={setProfil} />
       <div className="sticky top-0 left-0 right-0 z-10">
         <WebcamCapture setFoto={setFoto} setPreviewFoto={setPreviewFoto} />
       </div>
+      {profil && (
+        <div className="fixed inset-0 flex bg-black/50 justify-center items-center z-40 backdrop-blur-sm">
+          <div className="animasi-masuak">
+            <Account
+              setProfil={setProfil}
+              userName={userName}
+              userEmail={userEmail}
+            />
+          </div>
+        </div>
+      )}
 
       {/* main section */}
       <div className=" relative bg-[#26282a] rounded-t-4xl mt-[-25px] z-20 ">
