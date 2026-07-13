@@ -42,7 +42,6 @@ export default function App() {
         alert(`Gagal Daftar: ${error.message}`);
       } else {
         if (data?.session) {
-          alert("Registrasi Sukses, Langsung Masuk!");
           navigate("/Home", { replace: true });
         } else {
           alert("Registrasi Berhasil! Cek email konfirmasi di inbox/spam.");
