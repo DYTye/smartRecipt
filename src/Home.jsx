@@ -9,6 +9,7 @@ import { supabase } from "./supabase.js";
 import TransactionList from "./TransactionList.jsx";
 import FormInsert from "./FormInsert.jsx";
 import Account from "./Account.jsx";
+import Detail from "./EditHapusData.jsx"
 
 function Home() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Home() {
   const [tambahManual, setTambahManual] = useState(false);
   const [profil, setProfil] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+
 
   useEffect(() => {
     async function proteksiDanFetch() {
@@ -95,6 +97,8 @@ function Home() {
           </div>
         </div>
       )}
+
+
 
       <Header />
       <Footer setProfil={setProfil} />

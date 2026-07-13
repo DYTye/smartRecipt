@@ -38,6 +38,7 @@ function InserManual({setTambahManual}) {
       alert(`Eror : ${error.message}`);
     } else {
       setTambahManual(false);
+      window.location.reload();
     }
   };
 
