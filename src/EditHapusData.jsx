@@ -73,7 +73,7 @@ function EditHapus({
     <>
       <div className="m-5 rounded-2xl  bg-white/20 backdrop-blur-sm p-5 text-white shadow-md font-mono">
         <div className="mb-4 font-bold text-lg text-center border-black text-white">
-          Input Manual
+          Edit Transaksi
         </div>
 
         <form onSubmit={handleSimpanTransaksi} className="space-y-4">
@@ -137,7 +137,7 @@ function EditHapus({
           >
             Batal
           </button>
-          <div>
+          <div className="p-2">
             <img src={recipt} alt="" />
           </div>
         </form>
