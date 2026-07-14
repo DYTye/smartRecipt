@@ -43,7 +43,7 @@ function App() {
       .upload(namaFile, image);
     if (error) {
       alert("gagal upload");
-      console.error(storageError);
+      console.error(error);
       setLoading(false);
     } else {
       try {
@@ -82,7 +82,7 @@ function App() {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      alert("Jalurnyo putuih, Bre! Ang musti login ulang dulu.");
+      alert("login ulang dulu.");
       return;
     }
 
@@ -100,10 +100,10 @@ function App() {
       .select();
 
     if (error) {
-      console.error("Gagal store data, Bre:", error.message);
-      alert(`Eror muko dapuah db: ${error.message}`);
+      console.error("Gagal store data:", error.message);
+      alert(`Eror ${error.message}`);
     } else {
-      alert("Transaksi rasmi tasimpan gariang!");
+      // alert("Transaksi tersimpan");
       navigate("/Home");
     }
   };
