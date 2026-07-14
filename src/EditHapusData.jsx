@@ -30,7 +30,6 @@ function EditHapus({
         {
           merchant_name: namaToko || "Tanpa Nama",
           total_amount: Number(totalBelanja || 0),
-          date: new Date().toISOString().split("T")[0],
         },
       ])
       .eq("id", id);

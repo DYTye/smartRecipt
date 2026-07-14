@@ -27,7 +27,7 @@ export default function App() {
     setLoading(true);
 
     if (isRegister) {
-      // FIX 1: Sintaks standar Supabase untuak metadata tambahan (Username)
+      
       const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
