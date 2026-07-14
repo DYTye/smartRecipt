@@ -43,7 +43,7 @@ function HomeMenu({ userName, pengeluaran, setTambahManual }) {
                   setNumber(number + 1);
                 }}
               >
-                Walpapper
+                Wallpaper
               </button>
             </div>
           </div>

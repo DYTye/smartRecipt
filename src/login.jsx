@@ -54,7 +54,7 @@ export default function App() {
       });
 
       if (error) {
-        alert(`Gagal Masuak: ${error.message}`);
+        alert(`Gagal Masuk: ${error.message}`);
       } else {
         navigate("/Home", { replace: true });
       }
