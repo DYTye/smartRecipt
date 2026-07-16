@@ -9,11 +9,34 @@ import { supabase } from "./supabase.js";
 import TransactionList from "./TransactionList.jsx";
 import FormInsert from "./FormInsert.jsx";
 import Account from "./Account.jsx";
-import Detail from "./EditHapusData.jsx"
+import Detail from "./EditHapusData.jsx";
+import { useQuery } from "@tanstack/react-query";
+const fetchdata = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) return [];
+  const { data: transactionsData, error: dbError } = await supabase
+    .from("transactions")
+    .select("*")
+    .eq("user_id", session.user.id)
+    .order("created_at", { ascending: false });
+
+  if (dbError) throw new Error(dbError.message);
+  return transactionsData;
+};
 
 function Home() {
   const navigate = useNavigate();
-  const [transactions, setTransactions] = useState([]);
+  const {
+    data: transactions = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: fetchdata,
+  });
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [userName, setUserName] = useState("HoOoman");
   const [pengeluaran, setPengeluaran] = useState(0);
@@ -22,7 +45,6 @@ function Home() {
   const [tambahManual, setTambahManual] = useState(false);
   const [profil, setProfil] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-
 
   useEffect(() => {
     async function proteksiDanFetch() {
@@ -39,31 +61,25 @@ function Home() {
 
       const user = session.user;
       setLoadingAuth(false);
-
-      const { data: transactionsData, error: dbError } = await supabase
-        .from("transactions")
-        .select("*")
-        .eq("user_id", user?.id)
-        .order("created_at", { ascending: false });
-
-      if (dbError) {
-        console.error("Error database:", dbError.message);
-      } else if (transactionsData) {
-        setTransactions(transactionsData);
-        setUserEmail(user.email);
-        const namaAsli = user.user_metadata?.display_name || user.email;
-        setUserName(namaAsli);
-
-        let total = 0;
-        transactionsData.forEach((item) => {
-          total = total + Number(item.total_amount || 0);
-        });
-        setPengeluaran(total);
-      }
+      setUserEmail(user.email);
+      const namaAsli = user.user_metadata?.display_name || user.email;
+      setUserName(namaAsli);
     }
 
     proteksiDanFetch();
   }, [navigate]);
+
+  useEffect(() => {
+    if (transactions && transactions.length > 0) {
+      let total = 0;
+      transactions.forEach((item) => {
+        total = total + Number(item.total_amount || 0);
+      });
+      setPengeluaran(total);
+    } else {
+      setPengeluaran(0); // Kok data kosong, set 0
+    }
+  }, [transactions]);
 
   if (loadingAuth) {
     return (
@@ -97,8 +113,6 @@ function Home() {
           </div>
         </div>
       )}
-
-
 
       <Header />
       <Footer setProfil={setProfil} />

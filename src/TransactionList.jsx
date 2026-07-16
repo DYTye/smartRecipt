@@ -12,6 +12,7 @@ function TransactionList({ transactions }) {
   const [recipt, setRecipt] = useState();
   console.log(namaToko);
   console.log(detail);
+  
   return (
     <div className="flex flex-col bg-[#26282a] w-full rounded-4xl text-amber-100 -mt-7 relative z-20">
       <p className="mt-5 mx-auto font-light bg-gray-200 rounded-full px-2 py-1 w-25 text-xs shadow-xl shadow-amber-50"></p>
